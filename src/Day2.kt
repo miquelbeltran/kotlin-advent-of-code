@@ -1,10 +1,28 @@
 
-fun solveDay2(input: String): Int {
+fun solveDay2(input: String, delimiter: String = "\t"): Int {
     return input.split("\n")
             .filter { it.isNotEmpty() }
             .map {
-                val ints = it.split("\t").filter { it.isNotEmpty() }.map { it.toInt() }
+                val ints = it.split(delimiter).filter { it.isNotEmpty() }.map { it.toInt() }
                 return@map ints.max()!! - ints.min()!!
+            }
+            .sum()
+}
+
+fun solveDay2Part2(input: String, delimiter: String = "\t"): Int {
+    return input.split("\n")
+            .filter { it.isNotEmpty() }
+            .map {
+                val ints = it.split(delimiter).filter { it.isNotEmpty() }.map { it.toInt() }.toIntArray()
+                val sorted = ints.sortedDescending()
+                sorted.forEachIndexed { index, m ->
+                    sorted.drop(index + 1).forEach { d ->
+                        if (m % d == 0) {
+                            return@map m / d
+                        }
+                    }
+                }
+                return@map 0
             }
             .sum()
 }
@@ -28,6 +46,6 @@ fun main(args: Array<String>) {
 8447	203	1806	6777	278	2850	1232	6369	398	235	212	992	7520	7304	7852	520
 3928	107	3406	123	2111	2749	223	125	134	146	3875	1357	508	1534	4002	4417
 """
-    println(solveDay2(input))
+    println(solveDay2Part2(input))
 
 }
