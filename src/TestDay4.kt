@@ -21,4 +21,16 @@ class TestDay4 {
         assertFalse(solveDay4(input))
     }
 
+    @Test
+    fun `iiii oiii ooii oooi oooo is valid`() {
+        val input = "iiii oiii ooii oooi oooo"
+        assertTrue(solveDay4Part2(input))
+    }
+
+    @Test
+    fun `oiii ioii iioi iiio is not valid`() {
+        val input = "oiii ioii iioi iiio"
+        assertFalse(solveDay4Part2(input))
+    }
+
 }
