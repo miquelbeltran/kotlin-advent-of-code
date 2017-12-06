@@ -2,17 +2,15 @@ import java.io.File
 
 fun solveDay6(input: List<Int>): Int {
     val list = input.toMutableList()
-    val set = mutableSetOf<List<Int>>()
-    var steps = 0
+    val history = mutableListOf<List<Int>>()
 
-    while (exitCondition(list, set)) {
-        set.add(list)
+    while (exitCondition(list, history)) {
+        history.add(list.toList())
         reallocate(list)
-        steps++
         println(list)
-        println(steps)
+        println(history.size)
     }
-    return steps
+    return history.size
 }
 
 fun reallocate(list: MutableList<Int>) {
@@ -26,8 +24,12 @@ fun reallocate(list: MutableList<Int>) {
     }
 }
 
-fun exitCondition(list: List<Int>, set: Set<List<Int>>): Boolean {
-    return !set.contains(list)
+fun exitCondition(list: List<Int>, history: List<List<Int>>): Boolean {
+    val contains = history.contains(list)
+    if (contains) {
+        println("Diff: ${history.size - history.indexOf(list)}")
+    }
+    return !contains
 }
 
 fun main(args: Array<String>) {
