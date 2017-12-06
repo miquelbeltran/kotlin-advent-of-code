@@ -4,12 +4,12 @@ fun solveDay6(input: List<Int>): Int {
     val list = input.toMutableList()
     val history = mutableListOf<List<Int>>()
 
-    while (exitCondition(list, history)) {
+    while (!history.contains(list)) {
         history.add(list.toList())
         reallocate(list)
-        println(list)
-        println(history.size)
     }
+
+    println("Diff: ${history.size - history.indexOf(list)}")
     return history.size
 }
 
@@ -22,14 +22,6 @@ fun reallocate(list: MutableList<Int>) {
         list[index]++
         max--
     }
-}
-
-fun exitCondition(list: List<Int>, history: List<List<Int>>): Boolean {
-    val contains = history.contains(list)
-    if (contains) {
-        println("Diff: ${history.size - history.indexOf(list)}")
-    }
-    return !contains
 }
 
 fun main(args: Array<String>) {
