@@ -1,49 +1,30 @@
 import java.io.File
 
-fun solveDay9(input: String, part2: Boolean = false): Int {
+fun solveDay9(input: String): Pair<Int, Int> {
     var score = 0
-    var index = 0
     var openGroup = 0
     var garbage = false
     var garbageCount = 0
 
-    while (index < input.length) {
-        val char = input[index]
-        when (char) {
-            '{' -> {
-                if (!garbage) {
-                    openGroup++
-                } else {
-                    garbageCount++
-                }
+    val it = input.iterator()
+    while (it.hasNext()) {
+        val char = it.nextChar()
+        when {
+            garbage -> when (char) {
+                '>' -> garbage = false
+                '!' -> it.nextChar()
+                else -> garbageCount++
             }
-            '}' -> {
-                if (!garbage) {
-                    score += openGroup
-                    openGroup--
-                } else {
-                    garbageCount++
-                }
-            }
-            '!' -> index++
-            '<' -> {
-                if (garbage) {
-                    garbageCount++
-                }
-                garbage = true
-            }
-            '>' -> garbage = false
-            else -> if (garbage) {
-                garbageCount++
+            else -> when (char) {
+                '{' -> openGroup++
+                '}' -> score += openGroup--
+                '!' -> it.nextChar()
+                '<' -> garbage = true
             }
         }
-        index++
     }
 
-    if (part2) {
-        return garbageCount
-    }
-    return score
+    return Pair(score, garbageCount)
 }
 
 fun main(args: Array<String>) {
@@ -51,5 +32,4 @@ fun main(args: Array<String>) {
             .readLines()
             .first()
     println(solveDay9(input))
-    println(solveDay9(input, true))
 }

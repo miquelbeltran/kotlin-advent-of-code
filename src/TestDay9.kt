@@ -37,91 +37,91 @@ class TestDay9 {
     @Test
     fun `{}, score of 1`() {
         val input = "{}"
-        assertEquals(1, solveDay9(input))
+        assertEquals(1, solveDay9(input).first)
     }
 
     @Test
     fun `{{{}}}, score of 6`() {
         val input = "{{{}}}"
-        assertEquals(6, solveDay9(input))
+        assertEquals(6, solveDay9(input).first)
     }
 
     @Test
     fun `{{},{}}, score of 5`() {
         val input = "{{},{}}"
-        assertEquals(5, solveDay9(input))
+        assertEquals(5, solveDay9(input).first)
     }
 
     @Test
     fun `{{{},{},{{}}}} score of 16`() {
         val input = "{{{},{},{{}}}}"
-        assertEquals(16, solveDay9(input))
+        assertEquals(16, solveDay9(input).first)
     }
 
     @Test
     fun `garbage score of 1`() {
         val input = "{<a>,<a>,<a>,<a>}"
-        assertEquals(1, solveDay9(input))
+        assertEquals(1, solveDay9(input).first)
     }
 
     @Test
     fun garbage1() {
         val input = "{{<ab>},{<ab>},{<ab>},{<ab>}},"
-        assertEquals(9, solveDay9(input))
+        assertEquals(9, solveDay9(input).first)
     }
 
     @Test
     fun garbage2() {
         val input = "{{<!!>},{<!!>},{<!!>},{<!!>}},"
-        assertEquals(9, solveDay9(input))
+        assertEquals(9, solveDay9(input).first)
     }
 
     @Test
     fun garbage3() {
         val input = "{{<a!>},{<a!>},{<a!>},{<ab>}},"
-        assertEquals(3, solveDay9(input))
+        assertEquals(3, solveDay9(input).first)
     }
 
     @Test
     fun garbageCount1() {
         val input = "<>"
-        assertEquals(0, solveDay9(input, true))
+        assertEquals(0, solveDay9(input).second)
     }
 
     @Test
     fun garbageCount2() {
         val input = "<random characters>"
-        assertEquals(17, solveDay9(input, true))
+        assertEquals(17, solveDay9(input).second)
     }
 
     @Test
     fun garbageCount3() {
         val input = "<<<<>"
-        assertEquals(3, solveDay9(input, true))
+        assertEquals(3, solveDay9(input).second)
     }
 
     @Test
     fun garbageCount4() {
         val input = "<{!>}>"
-        assertEquals(2, solveDay9(input, true))
+        assertEquals(2, solveDay9(input).second)
     }
 
     @Test
     fun garbageCount5() {
         val input = "<!!>"
-        assertEquals(0, solveDay9(input, true))
+        assertEquals(0, solveDay9(input).second)
     }
 
     @Test
     fun garbageCount6() {
         val input = "<!!!>>"
-        assertEquals(0, solveDay9(input, true))
+        assertEquals(0, solveDay9(input).second)
     }
 
     @Test
     fun garbageCount7() {
         val input = "<{o\"i!a,<{i<a>"
-        assertEquals(10, solveDay9(input, true))
+        assertEquals(10, solveDay9(input).second)
     }
 }
 
