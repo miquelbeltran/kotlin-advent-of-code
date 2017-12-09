@@ -81,5 +81,47 @@ class TestDay9 {
         val input = "{{<a!>},{<a!>},{<a!>},{<ab>}},"
         assertEquals(3, solveDay9(input))
     }
+
+    @Test
+    fun garbageCount1() {
+        val input = "<>"
+        assertEquals(0, solveDay9(input, true))
+    }
+
+    @Test
+    fun garbageCount2() {
+        val input = "<random characters>"
+        assertEquals(17, solveDay9(input, true))
+    }
+
+    @Test
+    fun garbageCount3() {
+        val input = "<<<<>"
+        assertEquals(3, solveDay9(input, true))
+    }
+
+    @Test
+    fun garbageCount4() {
+        val input = "<{!>}>"
+        assertEquals(2, solveDay9(input, true))
+    }
+
+    @Test
+    fun garbageCount5() {
+        val input = "<!!>"
+        assertEquals(0, solveDay9(input, true))
+    }
+
+    @Test
+    fun garbageCount6() {
+        val input = "<!!!>>"
+        assertEquals(0, solveDay9(input, true))
+    }
+
+    @Test
+    fun garbageCount7() {
+        val input = "<{o\"i!a,<{i<a>"
+        assertEquals(10, solveDay9(input, true))
+    }
 }
 
