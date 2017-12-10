@@ -11,5 +11,18 @@ class TestDay10 {
         
     }
 
+    @Test
+    fun `part 2 example empty string`() {
+        val list = (0 until 256).toMutableList()
+        assertEquals("a2582a3a0e66e6e86e3812dcb672a272", solveDay10Part2(list, ""))
+
+    }
+
+    @Test
+    fun `calculate xor`() {
+        val input = mutableListOf(65, 27, 9, 1, 4, 3, 40, 50, 91, 7, 6, 0, 2, 5, 68, 22)
+        assertEquals(mutableListOf(64), calculateXor(input))
+
+    }
 }
 
