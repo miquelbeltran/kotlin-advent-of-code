@@ -38,7 +38,6 @@ fun solveDay10Part2(list: MutableList<Int>, lengths: String): String {
     repeat(64) {
         lengthsChars.forEach {
             val to = pos + it
-            // reverse the list from pos - to
             val reversed = mutableListOf<Int>()
             for (it in pos until to) {
                 reversed.add(list[it % list.size])
@@ -53,10 +52,7 @@ fun solveDay10Part2(list: MutableList<Int>, lengths: String): String {
             skip++
         }
     }
-
     val out = calculateXor(list)
-
-
     return out.map { String.format("%02X", it) }.joinToString("").toLowerCase()
 }
 
