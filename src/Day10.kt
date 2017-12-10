@@ -53,7 +53,7 @@ fun solveDay10Part2(list: MutableList<Int>, lengths: String): String {
         }
     }
     val out = calculateXor(list)
-    return out.map { String.format("%02X", it) }.joinToString("").toLowerCase()
+    return out.map {  it.toString(16).padStart(2, '0') }.joinToString("")
 }
 
 fun calculateXor(list: MutableList<Int>): List<Int> {
