@@ -56,23 +56,11 @@ fun solveDay10Part2(list: MutableList<Int>, lengths: String): String {
     return out.map { String.format("%02X", it) }.joinToString("").toLowerCase()
 }
 
-fun calculateXor(list: MutableList<Int>): MutableList<Int> {
-    val out = mutableListOf<Int>()
-    var count = 0
-    var xor = 0
-    list.forEach {
-        if (count == 0) {
-            xor = it
-        } else {
-            xor = xor.xor(it)
-        }
-        count++
-        if (count == 16) {
-            out.add(xor)
-            count = 0
-        }
-    }
-    return out
+fun calculateXor(list: MutableList<Int>): List<Int> {
+    return list.chunked(16)
+            .map {
+                it.fold(0) { acc, i -> acc xor i }
+            }
 }
 
 fun main(args: Array<String>) {
