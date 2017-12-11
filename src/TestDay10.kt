@@ -24,5 +24,12 @@ class TestDay10 {
         assertEquals(mutableListOf(64), calculateXor(input))
 
     }
+
+    @Test
+    fun `AoC 2017`() {
+        val input = "AoC 2017"
+        val list = (0 until 256).toMutableList()
+        assertEquals("33efeb34ea91902bb2f59c9920caa6cd", solveDay10Part2(list, input))
+    }
 }
 
