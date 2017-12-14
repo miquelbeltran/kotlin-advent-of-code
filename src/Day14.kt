@@ -34,15 +34,8 @@ fun solveDay14Part2(input: String): Int {
             }
         }
     }
-
-    for (i in 0 until 8) {
-        for (j in 0 until 8) {
-            print(matrix[i][j] + "\t")
-        }
-        println()
-    }
-
-    return matrix.flatMap { it.toSet() }.toSet().count() - 1
+    
+    return region - 1
 }
 
 fun explore(matrix: MutableList<MutableList<String>>, i: Int, j: Int, region: Int) {
