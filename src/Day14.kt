@@ -34,7 +34,7 @@ fun solveDay14Part2(input: String): Int {
             }
         }
     }
-    
+
     return region - 1
 }
 
