@@ -4,8 +4,6 @@ fun solveDay16Part1(ops: String, input: String): String {
     return ops
             .split(",")
             .fold(input) { value, op ->
-                println(op)
-                println(value)
                 consume(op, value)
             }
 }
@@ -45,9 +43,28 @@ private fun flipCharsAt(input: String, posA: Int, posB: Int): String {
     return chars.joinToString(separator = "")
 }
 
+fun solveDay16Part2(ops: String, input: String): String {
+    var out = input
+    var cicle = 0
+    do {
+        out = solveDay16Part1(ops, out)
+        cicle++
+    } while (out != input)
+    println(cicle)
+    val rest = 1_000_000_000 % cicle
+    println(rest)
+    repeat(rest) {
+        out = solveDay16Part1(ops, out)
+    }
+    return out
+}
+
+
+
 fun main(args: Array<String>) {
     val ops = File("/Users/miquel/Downloads/input.txt").readLines().first()
     val input = "abcdefghijklmnop"
     println(solveDay16Part1(ops, input))
+    println(solveDay16Part2(ops, input))
 
 }
