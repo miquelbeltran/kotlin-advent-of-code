@@ -17,7 +17,7 @@ fun solveDay18Part1(input: List<String>): Long {
     return memory.played
 }
 
-fun parseProgram(input: List<String>): List<Inst18> {
+private fun parseProgram(input: List<String>): List<Inst18> {
     return input.map {
         val parts = it.split(" ")
         when (parts[0]) {
@@ -33,9 +33,14 @@ fun parseProgram(input: List<String>): List<Inst18> {
     }
 }
 
-data class Memory(var pos: Long = 0, var played: Long = 0, val map: MutableMap<String, Long> = mutableMapOf(), var recovered: Boolean = false)
+internal data class Memory(
+        var pos: Long = 0,
+        var played: Long = 0,
+        val map: MutableMap<String, Long> = mutableMapOf(),
+        var recovered: Boolean = false
+)
 
-sealed class Inst18 {
+internal sealed class Inst18 {
 
     //    snd X plays a sound with a frequency equal to the value of X.
     class snd(val register: String) : Inst18() {
