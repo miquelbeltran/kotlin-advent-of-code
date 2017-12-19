@@ -26,20 +26,18 @@ object Day19: Day {
         var col = input[0].indexOf('|')
         var dir: Dir = Dir.Down
         var out = ""
+        var steps = 0
         while (true) {
 
             do {
                 out = updateOutput(input, row, col, out)
 
                 row += dir.first
-                if (rowOutOfBounds(row, input)) {
-                    return out
-                }
                 col += dir.second
-                if (colOutOfBounds(col, input, row)) {
-                    return out
-                }
+                steps++
+
                 if (input[row][col] == EMPTY) {
+                    println(steps)
                     return out
                 }
             } while (notInCross(input, row, col))
@@ -73,12 +71,6 @@ object Day19: Day {
     private fun notInCross(input: List<String>, row: Int, col: Int) =
             input[row][col] != X
 
-    private fun colOutOfBounds(col: Int, input: List<String>, row: Int) =
-            col !in (0 until input[row].length)
-
-    private fun rowOutOfBounds(row: Int, input: List<String>) =
-            row !in (0 until input.size)
-
     private fun nextDirIs(input: List<String>, row: Int, col: Int): Boolean {
         if (row >= input.size) return false
         if (col >= input[row].length) return false
@@ -86,7 +78,8 @@ object Day19: Day {
     }
 
     override fun part2(input: List<String>): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // solved in Part 1
+        return ""
     }
 
 }
