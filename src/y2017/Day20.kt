@@ -17,8 +17,6 @@ object Day20: Day {
             val a: Vec
     )
 
-    private fun Particle.distance(): Long = p.abs()
-
     private fun Vec.abs(): Long = x.absoluteValue + y.absoluteValue + z.absoluteValue
 
     private fun Particle.update() {
@@ -37,12 +35,8 @@ object Day20: Day {
     override fun part1(input: List<String>): String {
         val particles = parse(input)
 
-        // Brute force because I can't math
-        repeat(10_000) {
-            particles.forEach { it.update() }
-        }
-
-        return particles.map { it.distance() }.withIndex().minBy { it.value }!!.index.toString()
+        // The lowest acceleration will stay closer to the 0,0,0
+        return particles.map { it.a.abs() }.withIndex().minBy { it.value }!!.index.toString()
     }
 
     private fun parse(input: List<String>): List<Particle> {
@@ -59,28 +53,14 @@ object Day20: Day {
     }
 
     override fun part2(input: List<String>): String {
-        val particles = parse(input).toMutableList()
+        var particles = parse(input)
 
         // brute force because I can't math
         repeat(1_000) {
             particles.forEach { it.update() }
-
-            val positions = mutableSetOf<Vec>()
-            val toRemove = mutableSetOf<Vec>()
-            particles.forEach {
-                // If it is already there, then mark to delete
-                if (positions.contains(it.p)) {
-                    toRemove.add(it.p)
-                }
-                // Store each unique position
-                positions.add(it.p)
-            }
-            // delete all particles that match
-            toRemove.forEach { pos ->
-                particles.removeAll {
-                    it.p == pos
-                }
-            }
+            particles = particles.groupBy { it.p }
+                    .filter { it.value.size == 1 }
+                    .map { it.value.first() }
         }
 
         return particles.size.toString()
