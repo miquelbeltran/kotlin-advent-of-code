@@ -28,7 +28,7 @@ object Day21: Day {
             rules[pattern] = out
         }
 
-        printM(current)
+//        printM(current)
         repeat(times) {
             if (current.size % 2 == 0) {
 
@@ -41,8 +41,8 @@ object Day21: Day {
                 current = replaceBlocks(current, 3, rules, size)
             }
 
-            println("Current:")
-            printM(current)
+//            println("Current:")
+//            printM(current)
         }
 
         return current.map { it.count { it == '#' } }.sum().toString()
@@ -80,15 +80,15 @@ object Day21: Day {
     }
 
     private fun matchRule(rules: MutableMap<List<List<Char>>, List<List<Char>>>, map: List<List<Char>>): List<List<Char>> {
-        println("Input:")
-        printM(map)
+//        println("Input:")
+//        printM(map)
         var pattern = map
         var rotations = 0
         while (true) {
             val out = rules[pattern]
             if (out != null) {
-                println("Found pattern:")
-                printM(out)
+//                println("Found pattern:")
+//                printM(out)
                 return out
             }
             // rotate
@@ -136,7 +136,8 @@ object Day21: Day {
     }
 
     override fun part2(input: List<String>): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Day21.times = 18
+        return part1(input)
     }
 
 }
