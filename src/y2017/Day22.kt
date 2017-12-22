@@ -16,13 +16,10 @@ object Day22 : Day {
     const val WEAK = 'W'
     const val FLAG = 'F'
 
-
     val UP = Dir(-1, 0)
     val DOWN = Dir(1, 0)
     val LEFT = Dir(0, -1)
     val RIGHT = Dir(0, 1)
-
-    var bursts = 10_000
 
     override fun part1(input: List<String>): String {
         var dir = UP
@@ -31,7 +28,7 @@ object Day22 : Day {
         var pos = Pos(input.size / 2, input.size / 2)
         var count = 0
         println(pos)
-        repeat(bursts) {
+        repeat(10_000) {
             when (map[pos]) {
                 INFECTED -> {
                     dir = right(dir)
