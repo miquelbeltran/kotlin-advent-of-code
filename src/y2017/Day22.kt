@@ -13,6 +13,8 @@ object Day22 : Day {
 
     const val INFECTED = '#'
     const val CLEAN = '.'
+    const val WEAK = 'W'
+    const val FLAG = 'F'
 
 
     val UP = Dir(-1, 0)
@@ -54,7 +56,7 @@ object Day22 : Day {
             }
     }
 
-    private fun left(dir: Dir) : Dir {
+    private fun left(dir: Dir): Dir {
         return when (dir) {
             UP -> LEFT
             LEFT -> DOWN
@@ -79,7 +81,39 @@ object Day22 : Day {
     }
 
     override fun part2(input: List<String>): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var dir = UP
+        val map = mutableMapOf<Pos, Char>()
+        loadMap(map, input)
+        var pos = Pos(input.size / 2, input.size / 2)
+        var count = 0
+
+        repeat(10_000_000) {
+            when (map[pos]) {
+                INFECTED -> {
+                    dir = right(dir)
+                    map[pos] = FLAG
+                }
+                WEAK -> {
+                    map[pos] = INFECTED
+                    count++
+                }
+                FLAG -> {
+                    dir = dir.reverse()
+                    map[pos] = CLEAN
+                }
+                else -> {
+                    dir = left(dir)
+                    map[pos] = WEAK
+                }
+            }
+            pos += dir
+        }
+
+        return count.toString()
+    }
+
+    private fun Dir.reverse(): Dir {
+        return Dir(first * -1, second * -1)
     }
 }
 
