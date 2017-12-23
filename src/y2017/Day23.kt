@@ -8,7 +8,6 @@ fun main(args: Array<String>) {
 
 object Day23 : Day {
     override fun part1(input: List<String>): String {
-        return ""
         val memory = Memory()
         runProgram(input, memory)
         return memory.mulCount.toString()
@@ -18,84 +17,87 @@ object Day23 : Day {
         val program = parseProgram(input).toMutableList()
         do {
             program[memory.pos.toInt()](memory)
-            println(memory)
         } while (memory.pos < program.size)
     }
 
+    // In this solution I translate the input to code, then investigate a possible optimization
     override fun part2(input: List<String>): String {
-        var a = 0
-        var b = 0
-        var c = 0
-        var d = 0
-        var e = 0
-        var f = 0
-        var g = 0
-        var h = 0
+        var b : Long = 0L
+        var c : Long = 0L
+        var d : Long = 0L
+        var e : Long = 0L
+        var f : Boolean = true
+        var h : Long = 0L
 //set b 57
-        b = 57
 //set c b
 //jnz a 2
 //jnz 1 5
 //mul b 100
-        b *= 100
 //sub b -100000
-        b -= -100_000
+        b = 105_700L
 //set c b
-        c = b
 //sub c -17000
-        c -= -17_000
+        c = 122_700L
         do {
 //set f 1
-            f = 1
+            f = false
 //set d 2
-            d = 2
-            do {
-//set e 2
-                e = 2
-                do {
-//set g d
-                    g = d
-//mul g e
-                    g *= e
-//sub g b
-                    g -= b
-//jnz g 2
-                    if (g == 0) {
-//set f 0
-                        f = 0
-                    }
-//sub e -1
-                    e -= 1
-//set g e
-                    g = e
-//sub g b
-                    g -= b
-//jnz g -8
-                } while (g != 0)
-//sub d -1
-                d -= -1
-//set g d
-                g = d
-//sub g b
-                g -= b
-//jnz g -13
-            } while (g != 0)
+            d = 2L
+
+            // Optimized solution copied from Reddit
+            // finishes in seconds
+            while (d < b) {
+                if (b % d == 0L) {
+                    f = true
+                    break
+                }
+                d++
+            }
+
+
+// Slow original loop code, the break loop helps to speed up things
+            // takes like 15 minutes to complete :-(
+//            loop@ while (d != b) {
+////set e 2
+//                e = 2L
+//
+//                while (e != b) {
+////set g d
+////mul g e
+////sub g b
+////jnz g 2
+//                    if (d * e == b){
+////set f 0
+//                        f = true
+//                        break@loop
+//                    }
+////sub e -1
+//                    e++
+////set g e
+////sub g b
+////jnz g -8
+//                }
+////sub d -1
+//                d++
+////set g d
+////sub g b
+////jnz g -13
+//            }
+
 //jnz f 2
-            if (f == 0) {
+            if (f) {
 //sub h -1
-                h -= -1
+                h++
             }
 //set g b
-            g = b
 //sub g c
-            g -= c
 //jnz g 2
-            if (g == 0) {
+            if (b == c) {
 //jnz 1 3
                 return h.toString()
             }
 //sub b -17
-            b -= 17
+            b += 17L
 //jnz 1 -23
         } while (true)
     }
