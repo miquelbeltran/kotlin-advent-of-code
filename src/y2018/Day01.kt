@@ -8,9 +8,7 @@ fun main(args: Array<String>) {
 
 object Day01 : Day {
     override fun part1(input: List<String>): String {
-        return input.fold(0) { acc, item ->
-            item.toInt() + acc
-        }.toString()
+        return input.map { it.toInt() }.sum().toString()
     }
 
     override fun part2(input: List<String>): String {
