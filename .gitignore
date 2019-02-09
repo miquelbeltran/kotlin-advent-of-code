@@ -26,3 +26,4 @@ hs_err_pid*
 .idea/
 kotlin-advent-of-code.iml
 out/production/kotlin-advent-of-code/META-INF/
+out/
