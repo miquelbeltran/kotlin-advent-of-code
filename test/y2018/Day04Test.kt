@@ -61,9 +61,8 @@ class Day04Test {
 [1518-11-05 00:55] wakes up""".reader().readLines()
 
     @Test
-    fun minutesAsleep() {
-        assertEquals(50, Day04.minutesAsleep(input)["#10"])
-        assertEquals(30, Day04.minutesAsleep(input)["#99"])
+    fun bestMinute() {
+        assertEquals(24, Day04.bestMinute(input)["#10"]!!.maxBy { it.value }!!.key)
     }
 
     @Test
@@ -71,19 +70,22 @@ class Day04Test {
         assertEquals(Day04.Log(
                 date = Date(-382, 10, 1, 0, 0),
                 guard = "#10",
-                command = Day04.Command.BEGIN
+                command = Day04.Command.BEGIN,
+                minute = 0
         ), "[1518-11-01 00:00] Guard #10 begins shift".toLog())
 
         assertEquals(Day04.Log(
                 date = Date(-382, 10, 4, 0, 36),
                 guard = "",
-                command = Day04.Command.SLEEP
+                command = Day04.Command.SLEEP,
+                minute = 36
         ), "[1518-11-04 00:36] falls asleep".toLog())
 
         assertEquals(Day04.Log(
                 date = Date(-382, 10, 5, 0, 55),
                 guard = "",
-                command = Day04.Command.WAKE
+                command = Day04.Command.WAKE,
+                minute = 55
         ), "[1518-11-05 00:55] wakes up\"".toLog())
     }
 

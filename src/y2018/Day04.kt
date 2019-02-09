@@ -3,14 +3,30 @@ package y2018
 import common.Day
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.max
+import kotlin.math.min
 
-object Day04: Day {
+fun main(args: Array<String>) {
+    Day04.solve()
+}
+
+object Day04 : Day {
     override fun part1(input: List<String>): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val all = bestMinute(input)
+        val best = all.maxBy { it.value.values.sum() }!!.key
+        println("Best: $best")
+        val bestMinute = all[best]!!.maxBy { it.value }!!.key
+        println("Best Minute: $bestMinute")
+        return (best.substring(1).toInt() * bestMinute).toString()
     }
 
     override fun part2(input: List<String>): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val all = bestMinute(input)
+        val best = all.maxBy { it.value.maxBy { it.value }!!.value }!!.key
+        println("Best: $best")
+        val bestMinute = all[best]!!.maxBy { it.value }!!.key
+        println("Best Minute: $bestMinute")
+        return (best.substring(1).toInt() * bestMinute).toString()
     }
 
     enum class Command {
@@ -20,19 +36,38 @@ object Day04: Day {
     data class Log(
             val date: Date,
             val guard: String,
-            val command: Command
+            val command: Command,
+            val minute: Int
     )
 
-    /**
-     * returns: Map with Guard Id and minutes asleep
-     */
-    fun minutesAsleep(input: List<String>): Map<String, Int> {
+    fun bestMinute(input: List<String>): MutableMap<String, MutableMap<Int, Int>> {
         val logs = input.map { it.toLog() }
         val sorted = logs.sortedBy { it.date }
+        val guardsTotals = mutableMapOf<String, MutableMap<Int, Int>>()
 
-        sorted
+        var currentGuard = ""
+        var minute: Int = 0
 
-        return mapOf()
+        for (log in sorted) {
+            when (log.command) {
+                Command.BEGIN -> {
+                    currentGuard = log.guard
+                }
+                Command.SLEEP -> {
+                    minute = log.minute
+                }
+                Command.WAKE -> {
+                    val map = guardsTotals[currentGuard] ?: mutableMapOf()
+                    for (m in minute..log.minute) {
+                        map[m] = (map[m] ?: 0) + 1
+                    }
+//                    println(map)
+                    guardsTotals[currentGuard] = map
+                }
+            }
+        }
+
+        return guardsTotals
     }
 }
 
@@ -54,6 +89,7 @@ fun String.toLog(): Day04.Log {
     return Day04.Log(
             date = parser.parse(substring(1 until 17)),
             guard = guard,
-            command = command
+            command = command,
+            minute = substring(15 until 17).toInt()
     )
 }
